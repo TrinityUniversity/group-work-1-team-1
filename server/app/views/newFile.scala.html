@@ -1,0 +1,12 @@
+@(texts: Array[String])
+
+
+<table>
+    <thead>
+        <th>word!</th>
+    </thead>
+    @for(text <- texts) { <tr>
+        @for(char <- text) { <td>@char</td> }
+    </tr>}
+</table>
+

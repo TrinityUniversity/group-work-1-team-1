@@ -1,0 +1,18 @@
+@import controllers.player
+@(players: Array[player])
+
+
+<table>
+    <thead>
+        <th>name</th>
+        <th>pos</th>
+        <th>g</th>
+    </thead>
+    @for(player <- players) { <tr>
+        <td>@player.name</td>
+        <td>@player.pos</td>
+        <td>@player.g</td> 
+    </tr>
+    }
+</table>
+

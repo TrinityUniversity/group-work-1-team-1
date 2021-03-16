@@ -1,6 +1,8 @@
 import org.junit.runner._
 import org.specs2.runner._
+import org.scalatestplus.play._
 import play.api.test._
+import models._
 
 /**
  * Add your spec here.
@@ -23,5 +25,18 @@ class ApplicationSpec() extends PlaySpecification {
       contentType(home) must beSome.which(_ == "text/html")
       contentAsString(home) must contain ("shouts out")
     }
+  }
+}
+
+class TestingSpec extends PlaySpec {
+  "Usersmodel" must {
+     "reject an invalid username" in {
+        val badUsername = "asdfasdfasdfasdf"
+        userModel.isValidUser(badUsername) mustBe false
+      }
+      "accept a valid username" in {
+        val goodUsername = "cweisenb"
+        userModel.isValidUser(goodUsername) mustBe true
+      }
   }
 }

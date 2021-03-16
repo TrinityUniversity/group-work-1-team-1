@@ -2,6 +2,8 @@ package controllers
 
 import javax.inject._
 
+import models.userModel._
+
 import edu.trinity.videoquizreact.shared.SharedMessages
 import play.api.mvc._
 
@@ -20,16 +22,20 @@ class Application @Inject()(cc: ControllerComponents) extends AbstractController
     Ok(views.html.userinformation(name, color))
   }
   
-  def submitPostForm() = Action { request =>      
+  def submitPostForm() = Action { request =>     // add the validation for username 
     val body = request.body.asFormUrlEncoded
     body.map{args => 
       val username = args("input").head
-      Ok(views.html.username(username))
+      if(isValidUser(username)) {
+        Ok(views.html.username(username))
+      } else {
+        Ok("this failed")
+      }
     }.getOrElse(Ok("this failed"))
     
   }
 
-  def getFriends()
+
 
   def index = Action {
     Ok(views.html.index(SharedMessages.itWorks))

@@ -1,7 +1,7 @@
 package models
 
 object userModel {
-
+    
     
     val names: Array[Array[String]] = """Paul Abila,https://www.cs.trinity.edu/~pabila/,9050,9059,Pandora01
 Joseph Baker,https://www.cs.trinity.edu/~jbaker6/,9060,9069,Pandora01
@@ -35,11 +35,23 @@ Caden Young,https://www.cs.trinity.edu/~cyoung5/,9310,9319,Pandora06""".split("\
         names.filter(x => x(0) == name).map(x => {
             val url = x(1)
             val tilde = url.indexOf("~")
-            val username = url.substring(tilde+1).dropRight(1)
+            url.substring(tilde+1).dropRight(1)
+        }).head
+    }
+
+    def makeUsernames():Array[(String, String)] = { //Array of tuples (name, username)
+        names.map(row => {
+            val name = row(0)
+            val url = row(1)
+            val tilde = url.indexOf("~")
+            (name, url.substring(tilde+1).dropRight(1))
         })
     }
+    def isValidUser(username:String): Boolean = {
+        nameMap.exists(x => x._2 == username)
+    }
     
-    val friends = """Paul Abila,bmalik,mbarton,dclaesse,hfulton,khardee,emiller6,cweisenb
+    val friends: Array[Array[String]] = """Paul Abila,bmalik,mbarton,dclaesse,hfulton,khardee,emiller6,cweisenb
 Joseph Baker,mbarton,mcartwri,afeleke,thall,jkibet,emiller6,ctatu
 Matthew Barton,pabila,kcrusius,rfernan3,khardee,tlauerma,athakar,cweisenb
 Morgan Cartwright,jbaker6,kcrusius,afeleke,jkibet,eruetsch,cyoung5
@@ -68,8 +80,12 @@ Connor Weisenberger,jbaker6,mbarton,dclaesse,thall,khardee,espradli,swhitney
 Sabrina Whitney,jbaker6,dclaesse,kcrusius,afeleke,rhuynh1,eruetsch,cyoung5
 Caden Young,pabila,mbarton,dclaesse,cfagerst,thall,khardee,vriosrio,awalker3""".split("\n").map(line => line.split(","))
     val usernames: Array[(String, Array[String])] = friends.map(x => (x.head, x.tail))
-    
-    def getFriendsByName(name:String):Array[String] = {
-        usernames(usernames.indexWhere(x => x._1 == name))
+    val nameMap: Array[(String, String)] = makeUsernames() //Array of tuples (name, username)
+
+
+    def getFriendsByName(username:String):Array[String] = {
+        val realName = nameMap.filter(x => x._2 == username).head._1
+        val indexOfTheUserInFriends = usernames.indexWhere(x => x._1 == realName)
+        friends(indexOfTheUserInFriends)
     }
 }

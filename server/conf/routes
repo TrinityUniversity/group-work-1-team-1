@@ -6,6 +6,11 @@
 GET        /                             controllers.Application.index
 GET        /newroute                     controllers.Application.woah 
 GET        /doug                         controllers.Application.doug
+GET        /form                         controllers.Application.form
+GET        /postForm                     controllers.Application.postForm
++nocsrf
+POST       /submitPostForm               controllers.Application.submitPostForm
+GET        /submitForm                   controllers.Application.submitForm(name, color)
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)
 GET        /versionedAssets/*file        controllers.Assets.versioned(path="/public", file: Asset)

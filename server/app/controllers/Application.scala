@@ -10,6 +10,27 @@ case class player(name:String, pos:String, g:Int)
 @Singleton
 class Application @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
+  def form = Action {
+    Ok(views.html.form())
+  }
+  def postForm = Action {
+    Ok(views.html.postForm())
+  }
+  def submitForm(name:String, color: String) = Action {     
+    Ok(views.html.userinformation(name, color))
+  }
+  
+  def submitPostForm() = Action { request =>      
+    val body = request.body.asFormUrlEncoded
+    body.map{args => 
+      val username = args("input").head
+      Ok(views.html.username(username))
+    }.getOrElse(Ok("this failed"))
+    
+  }
+
+  def getFriends()
+
   def index = Action {
     Ok(views.html.index(SharedMessages.itWorks))
   }

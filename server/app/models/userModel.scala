@@ -86,6 +86,6 @@ Caden Young,pabila,mbarton,dclaesse,cfagerst,thall,khardee,vriosrio,awalker3""".
     def getFriendsByName(username:String):Array[String] = {
         val realName = nameMap.filter(x => x._2 == username).head._1
         val indexOfTheUserInFriends = usernames.indexWhere(x => x._1 == realName)
-        friends(indexOfTheUserInFriends)
+        usernames(indexOfTheUserInFriends)._2
     }
 }

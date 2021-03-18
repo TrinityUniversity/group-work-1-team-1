@@ -1,0 +1,16 @@
+@(friends: Array[String])
+
+
+<table>
+    <thead>
+        <th>friends</th>
+    </thead>
+    @for(friend <- friends) { <tr>
+        <td>@friend</td>
+    </tr>
+    }
+</table>
+
+<form action="/postForm">
+    <input type="submit" value="logout"></input>
+</form>

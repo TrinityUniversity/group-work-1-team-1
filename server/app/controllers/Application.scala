@@ -27,7 +27,9 @@ class Application @Inject()(cc: ControllerComponents) extends AbstractController
     body.map{args => 
       val username = args("input").head
       if(isValidUser(username)) {
-        Ok(views.html.username(username))
+        //Ok(views.html.username(username))\
+        val friends = getFriendsByName(username)
+        Ok(views.html.friends(friends))
       } else {
         Ok("this failed")
       }
@@ -71,9 +73,10 @@ class Application @Inject()(cc: ControllerComponents) extends AbstractController
     def toPlayer(line:Array[String]):player = {
       player(line(1),line(2), line(3).toInt)
     }
+
     val players:Array[player] = data.map(x => toPlayer(x))
     Ok(views.html.playerTable(players))
-}
+  }
 
 
 
